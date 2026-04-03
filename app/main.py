@@ -1,7 +1,10 @@
+import joblib
 from fastapi import FastAPI
 from app.schemas import LeadInput
 
 app = FastAPI()
+
+model = joblib.load("model.pkl")
 
 
 @app.get("/")
@@ -11,19 +14,18 @@ def read_root():
 
 @app.post("/predict")
 def predict(lead: LeadInput):
-    # simulate preprocessing + model logic
-
-    features = [
+    features = [[
         lead.total_visits,
-        lead.time_spent_on_website
-    ]
+        lead.time_spent_on_website,
+        lead.page_views_per_visit,
+        lead.asymmetrique_activity_score,
+        lead.asymmetrique_profile_score
+    ]]
 
-    if features[1] > 100:
-        prediction = 1
-    else:
-        prediction = 0
+    prediction = model.predict(features)[0]
+    probability = model.predict_proba(features)[0][1]
 
     return {
-        "prediction": prediction,
-        "features_used": features
+        "prediction": int(prediction),
+        "probability": float(probability)
     }
