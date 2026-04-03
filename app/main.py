@@ -1,3 +1,4 @@
+from datetime import datetime
 import joblib
 from fastapi import FastAPI
 from app.schemas import LeadInput
