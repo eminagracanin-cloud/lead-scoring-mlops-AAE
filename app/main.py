@@ -11,13 +11,19 @@ def read_root():
 
 @app.post("/predict")
 def predict(lead: LeadInput):
-    # simple dummy logic (for now)
-    if lead.time_spent_on_website > 100:
+    # simulate preprocessing + model logic
+
+    features = [
+        lead.total_visits,
+        lead.time_spent_on_website
+    ]
+
+    if features[1] > 100:
         prediction = 1
     else:
         prediction = 0
 
     return {
         "prediction": prediction,
-        "message": "This is a dummy prediction (will be replaced by model later)"
+        "features_used": features
     }
