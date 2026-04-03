@@ -5,6 +5,7 @@ from app.schemas import LeadInput
 
 app = FastAPI()
 
+# load trained model
 model = joblib.load("model.pkl")
 
 
@@ -15,6 +16,7 @@ def read_root():
 
 @app.post("/predict")
 def predict(lead: LeadInput):
+    # create feature array
     features = [[
         lead.total_visits,
         lead.time_spent_on_website,
@@ -23,8 +25,15 @@ def predict(lead: LeadInput):
         lead.asymmetrique_profile_score
     ]]
 
+    # model prediction
     prediction = model.predict(features)[0]
     probability = model.predict_proba(features)[0][1]
+
+    # logging (VERY IMPORTANT)
+    with open("logs.txt", "a") as f:
+        f.write(
+            f"{datetime.now()} | Input: {features} | Prediction: {prediction} | Probability: {probability}\n"
+        )
 
     return {
         "prediction": int(prediction),
