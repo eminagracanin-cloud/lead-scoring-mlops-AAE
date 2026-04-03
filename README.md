@@ -1,5 +1,3 @@
-# lead-scoring-mlops-AAE
-
 # Lead Scoring MLOps Pipeline
 
 This project implements an end-to-end MLOps pipeline for predicting whether a lead is likely to convert into a customer.
