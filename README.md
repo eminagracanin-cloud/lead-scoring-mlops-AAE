@@ -19,3 +19,17 @@ This project implements an end-to-end MLOps pipeline for predicting whether a le
 ## How to Run
 
 1. Install dependencies:
+pip install -r requirements.txt
+
+2. Run the API:
+uvicorn app.main:app --reload
+
+
+## Endpoint
+
+- `GET /` – Health check
+- `POST /predict` – Predict lead conversion
+
+---
+
+This project focuses on system design, reproducibility, and deployment in an MLOps context.
