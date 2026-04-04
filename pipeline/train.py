@@ -41,7 +41,11 @@ def train_model():
     accuracy = accuracy_score(y_test, predictions)
     print(f"Model accuracy: {accuracy:.4f}")
 
-    # 8. Save model
+    # 8. Save metrics (FIXED INDENTATION)
+    with open("metrics.txt", "w") as f:
+        f.write(f"Accuracy: {accuracy:.4f}")
+
+    # 9. Save model
     joblib.dump(model, "model.pkl")
 
     return model
