@@ -1,6 +1,5 @@
 import pandas as pd
 
-
-def load_data(path: str):
-    df = pd.read_csv(path)
+def load_data():
+    df = pd.read_csv("Lead Scoring.csv")
     return df
